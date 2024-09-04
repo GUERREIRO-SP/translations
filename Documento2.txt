@@ -1,0 +1,74 @@
+
+
+Formul�rios CRUD em python
+
+https://www.usandopy.com/pt/projetos-em-python/como-criar-formulario-em-python-crud-em-python-com-sqlite/
+
+https://www.usandopy.com/pt/categoria/python-tkinter/
+
+
+cbo_strategy
+cbo_language
+
+id text(36),	
+id text(36),	
+id_project text(36),	
+strategy text(255),	
+key text(255),		
+language text(25),	
+context text(1000),		
+value text(1000),		
+override_en text(1000),	
+flag_export boolean,	
+
+(1, 'es-419', 'Spanish - 419', False)
+(2, 'es-es', 'Spanish - Spain', False)
+(3, 'fr-ca', 'French - Canada', False)
+(4, 'ja-jp', 'Japanese - Japan', False)
+(5, 'pt-br', 'Portugues - Brasil', False)
+
+
+(1, '019184be-bd1b-7c0f-aa37-a3cf1bc27f51', 'Nordica Village', 'ChatGPT', 'pt-br' , 'GWA_PURCHASED_PRODUCT_PRICE_KEY', '<color=#808080>Consegui!</color>', True),
+(2, '019184bf-2efa-7107-8f78-c4f5e69cdfcf', 'Nordica Village', 'ChatGPT', 'es-419', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'this got it means that I HAVE IT PURCHASED, and keep in english"	<color=#808080>�Lo consegu�!</color>', True),
+(3, '019184bf-d77a-819e-a0fd-55cfe6f93763', 'Nordica Village', 'Manual',  'en-us' , 'GWA_PURCHASED_PRODUCT_PRICE_KEY',  'this got it means that I HAVE IT PURCHASED, and keep the code part in english"	<color=#808080>Got it!</color>', True),
+(4, '019184bf-d77a-819e-a0fd-55cfe6f93766', 'Nordica Village', 'Google',  'pt-br' , 'GWA_PURCHASED_PRODUCT_PRICE_KEY',  '<color=#808080>Consegui!</color>', True);
+
+
+(1, '019184be-bd1b-7c0f-aa37-a3cf1bc27f51', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'ChatGPT', 'pt-br' , 'GWA_PURCHASED_PRODUCT_PRICE_KEY', '', '<color=#808080>Consegui!</color>', '', True),
+(2, '019184bf-2efa-7107-8f78-c4f5e69cdfcf', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'ChatGPT', 'es-419', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', '', 'this got it means that I HAVE IT PURCHASED, and keep in english"	<color=#808080>�Lo consegu�!</color>', '', True),
+(3, '019184bf-d77a-819e-a0fd-55cfe6f93456', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'Manual', ''en-us' , GWA_PURCHASED_PRODUCT_PRICE_KEY',  '', 'this got it means that I HAVE IT PURCHASED, and keep the code part in english"	<color=#808080>Got it!</color>', '', True),
+(4, '019184bf-d77a-819e-a0fd-55cfe6f93766', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'Google', ''pt-br' , GWA_PURCHASED_PRODUCT_PRICE_KEY',  '', '<color=#808080>Consegui!</color>', '', True);
+
+
+[('019184be-bd1b-7c0f-aa37-a3cf1bc27f51', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'ChatGPT', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'pt-br', '', '<color=#808080>Consegui!</color>', '', 1), 
+ ('019184bf-2efa-7107-8f78-c4f5e69cdfcf', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'ChatGPT', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'es-419', '', 'this got it means that I HAVE IT PURCHASED, and keep in english"\t<color=#808080>�Lo consegu�!</color>', '', 1), 
+ ('019184bf-d77a-819e-a0fd-55cfe6f93456', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'Manual', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'en-us', '', 'this got it means that I HAVE IT PURCHASED, and keep the code part in english"\t<color=#808080>Got it!</color>', '', 1), 
+ ('019184bf-d77a-819e-a0fd-55cfe6f93766', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'Google', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'pt-br', '', '<color=#808080>Consegui!</color>', '', 1), 
+ ('019184be-bd1b-7c0f-aa37-a3cf1bc27f52', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'ChatGPT', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'pt-br', '', '<color=#808080>Consegui!</color>', '', 1)]
+
+[('019184be-bd1b-7c0f-aa37-a3cf1bc27f51', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'ChatGPT', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'pt-br', '', '<color=#808080>Consegui!</color>', '', 1), ('019184bf-2efa-7107-8f78-c4f5e69cdfcf', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'ChatGPT', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'es-419', '', 'this got it means that I HAVE IT PURCHASED, and keep in english"\t<color=#808080>�Lo consegu�!</color>', '', 1), ('019184bf-d77a-819e-a0fd-55cfe6f93456', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'Manual', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'en-us', '', 'this got it means that I HAVE IT PURCHASED, and keep the code part in english"\t<color=#808080>Got it!</color>', '', 1), ('019184bf-d77a-819e-a0fd-55cfe6f93766', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'Google', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'pt-br', '', '<color=#808080>Consegui!</color>', '', 1), ('019184be-bd1b-7c0f-aa37-a3cf1bc27f52', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'ChatGPT', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'pt-br', '', '<color=#808080>Consegui!</color>', '', 1)]
+
+
+[('019184be-bd1b-7c0f-aa37-a3cf1bc27f51', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'en-us', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'pt-br', '', '<color=#808080>Consegui!</color>', '', 1), 
+ ('019184bf-2efa-7107-8f78-c4f5e69cdfcf', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'ChatGPT', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'es-419', '', 'this got it means that I HAVE IT PURCHASED, and keep in english"\t<color=#808080>�Lo consegu�!</color>', '', 1), 
+ ('019184bf-d77a-819e-a0fd-55cfe6f93456', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'Manual', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'en-us', '', 'this got it means that I HAVE IT PURCHASED, and keep the code part in english"\t<color=#808080>Got it!</color>', '', 1), 
+ ('019184bf-d77a-819e-a0fd-55cfe6f93766', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'Google', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'pt-br', '', '<color=#808080>Consegui!</color>', '', 1), 
+ ('019184be-bd1b-7c0f-aa37-a3cf1bc27f52', '019184bf-d77a-819e-a0fd-55cfe6f93763', 'ChatGPT', 'GWA_PURCHASED_PRODUCT_PRICE_KEY', 'pt-br', '', '<color=#808080>Consegui!</color>', '', 1)]
+
+
+id_trans = e_id_trans 
+id_proj = e_id_proj 
+strategy = e_strategy 
+language = e_language 
+export = e_export 
+key = e_key 
+context = e_context 
+value = e_value 
+override = e_override 
+
+
+
+UPDATE translations SET (id=?, id_project=?, strategy=?, key=?, language=?, context=?, value=?, override_en=?, flag_export=?) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id=?
+
+UPDATE translations SET (id=?, id_project=?, strategy=?, key=?, language=?, context=?, value=?, override_en=?, flag_export=?) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id=?
+---------------

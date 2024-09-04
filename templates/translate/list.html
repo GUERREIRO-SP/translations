@@ -1,0 +1,42 @@
+{% extends 'translate/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="pagina-inicial">
+        <div class="table-responsive">
+            <table class="table table_striped" style="color:#D9D9D9; margin-bottom: 5px;">
+                <tr>
+                    <th>Id</th>
+                    <th>Translation</th>
+                    <th>Project</th>
+                    <th>Strategy</th>
+                    <th>Language</th>
+                    <th>Context</th>
+                    <th>Options</th>
+                </tr>
+
+                {% for campo in object_list %}
+                    <tr>
+                        <td>{{ campo.id }}</td>
+                        <td>{{ campo.id }}</td>
+                        <td>{{ campo.id_project }}</td>
+                        <td>{{ campo.strategy }}</td>
+                        <td>{{ campo.language }}</td>
+                        <td>{{ campo.context }}</td>
+                        <td>
+                            <!-- <a href="{%  url 'edit' campo.id %}" class="btn btn-warning btn-sm">Edit</a> -->
+                            <!-- <a href="{%  url 'delete' campo.id %}" class="btn btn-danger btn-sm">Delete</a> -->
+                            <a href="" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td> colspan="6"não há registros...</td>
+                    </tr>
+                {% endfor%}
+
+            </table>
+        </div>
+        </main>
+    </div>
+{% endblock %}
