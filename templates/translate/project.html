@@ -1,0 +1,34 @@
+{% extends 'translate/base.html' %}
+{% load static %}
+{% block content %} 
+
+    <section class="galeria" style="margin-left: 5em">
+
+        <!-- Ajustar a chamada da função -->
+
+        <form action="project/create" method="POST">
+            <!-- csrf_tokeh - Garante a segurança das informações que passamos pelo formulário.
+            Sempre deve ser colocado dentro da tag <form> -->
+            {% csrf_token %}
+            <div class="row">
+                <!-- <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                    <label for="id" style="color:#D9D9D9; margin-bottom: 5px;"><b>Id</b></label>
+                    <input type="text" class="form-control" name="id" placeholder="system generated uuid..." required>
+                </div> -->
+                <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                    <label for="id_project" style="color:#D9D9D9; margin-bottom: 5px;"><b>Project name</b></label>
+                    <input type="text" class="form-control" name="name" required>
+                </div>
+                <!--  -->
+                <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                    <label for="export_strategy" style="color:#D9D9D9; margin-bottom: 5px;"><b>Export strategy</b></label>
+                    <input type="text" class="form-control" name="export_strategy">
+                </div>
+                <div class="col-3 text-center offset-4">
+                    <button class="btn btn-success col-12" style="padding: top 5px;" type="submit">Create record</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+{% endblock %}

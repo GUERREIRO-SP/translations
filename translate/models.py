@@ -1,6 +1,7 @@
 from django.db import models
 from .generate_uuid import get_a_uuid
 
+
 class Language(models.Model):
 
     id = models.CharField(max_length=25, null = False, blank = False, primary_key=True, editable=False)
@@ -11,6 +12,7 @@ class Language(models.Model):
     def __str__(self):
         return f"Language: [language={self.id}]"   
 
+
 class Project(models.Model):
 
     id = models.CharField(max_length=36, null = False, blank = False, primary_key=True, default=get_a_uuid, editable=False)
@@ -19,7 +21,8 @@ class Project(models.Model):
 
     # Retorna o valor do registro...
     def __str__(self):
-        return f"Project: [id_project={self.id}]"
+        return f"Project: [project={self.name}]"
+
 
 class Project_Language(models.Model):
 
@@ -31,6 +34,7 @@ class Project_Language(models.Model):
     # Retorna o valor do registro...
     def __str__(self):
         return f"Project_Language: [id_project={self.id_project}]"   
+
 
 class Translations(models.Model):
 

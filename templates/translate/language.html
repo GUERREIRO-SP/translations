@@ -1,0 +1,39 @@
+{% extends 'translate/base.html' %}
+{% load static %}
+{% block content %} 
+
+    <section class="galeria" style="margin-left: 5em">
+
+        <!-- Ajustar a chamada da função -->
+
+        <!-- http://127.0.0.1:8000/language/create -->
+
+        <form action="language/create" method="POST">
+            <!-- csrf_tokeh - Garante a segurança das informações que passamos pelo formulário.
+            Sempre deve ser colocado dentro da tag <form> -->
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                    <label for="id" style="color:#D9D9D9; margin-bottom: 5px;"><b>Id</b></label>
+                    <input type="text" class="form-control" name="id" placeholder="language id..." required>
+                </div>
+                <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                    <label for="id_project" style="color:#D9D9D9; margin-bottom: 5px;"><b>Name</b></label>
+                    <input type="text" class="form-control" name="name" placeholder="language name..." required>
+                </div>
+                <div class="form-group col-3 col-lg-3"  style="margin-top: 30px;">
+                    <div class="form-check"> 
+                        <input class="form-check-input" type="checkbox" id="gridCheck" name="rtl_direction">
+                        <label for="rtl_direction" style="color:#D9D9D9; margin-bottom: 5px;"><b>RTL direction</b></label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 text-center offset-4">
+                        <button class="btn btn-success col-12" style="padding: top 5px;" type="submit">Create record</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+
+{% endblock %}

@@ -12,16 +12,16 @@
             {% csrf_token %}
             <div class="row">
                 <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
-                    <label for="id" style="color:#D9D9D9; margin-bottom: 5px;"><b>id</b></label>
+                    <label for="id" style="color:#D9D9D9; margin-bottom: 5px;"><b>Id</b></label>
                     <input type="text" class="form-control" name="id" placeholder="uuID7" required>
                 </div>
                 <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
-                    <label for="id_project" style="color:#D9D9D9; margin-bottom: 5px;"><b>id_project</b></label>
+                    <label for="id_project" style="color:#D9D9D9; margin-bottom: 5px;"><b>Project Id</b></label>
                     <!-- <input type="email" class="form-control" name="email" placeholder="uuID7" required> -->
                     <input type="text" class="form-control" name="id_project" placeholder="uuID7" required>
                 </div>
                 <div class="col-3 col-lg-3" style="margin-bottom: 10px;">
-                    <label for="strategy" style="color:#D9D9D9; margin-bottom: 5px;"><b>strategy</b></label>
+                    <label for="strategy" style="color:#D9D9D9; margin-bottom: 5px;"><b>Strategy</b></label>
                     <select class="form-control" name="strategy">
                         <option selected>Select...</option>
                         <option value="ChatGPT">ChatGPT</option> 
@@ -30,7 +30,7 @@
                     </select>
                 </div>                        
                 <div class="col-3 col-lg-3" style="margin-bottom: 10px;">
-                    <label for="language" style="color:#D9D9D9; margin-bottom: 5px;"><b>language</b></label>
+                    <label for="language" style="color:#D9D9D9; margin-bottom: 5px;"><b>Language</b></label>
                     <select class="form-control" name="language">
                         <option selected>Select...</option>
                         <option value="en-us">en-us</option> 
@@ -41,23 +41,23 @@
                 <div class="form-group col-3 col-lg-3"  style="margin-top: 30px;">
                     <div class="form-check"> 
                         <input class="form-check-input" type="checkbox" id="gridCheck" name="flag_export">
-                        <label for="flag_export" style="color:#D9D9D9; margin-bottom: 5px;"><b>flag_export</b></label>
+                        <label for="flag_export" style="color:#D9D9D9; margin-bottom: 5px;"><b>Export flag</b></label>
                     </div>
                 </div>
                 <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
-                    <label for="context" style="color:#D9D9D9; margin-bottom: 5px;"><b>context</b></label>
+                    <label for="context" style="color:#D9D9D9; margin-bottom: 5px;"><b>Context</b></label>
                     <input type="text" class="form-control" name="context">
                 </div>
                 <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
-                    <label for="value" style="color:#D9D9D9; margin-bottom: 5px;"><b>value</b></label>
+                    <label for="value" style="color:#D9D9D9; margin-bottom: 5px;"><b>Value</b></label>
                     <input type="text" class="form-control" name="value">
                 </div>            
                 <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
-                    <label for="override_en" style="color:#D9D9D9; margin-bottom: 5px;"><b>override_en</b></label>
+                    <label for="override_en" style="color:#D9D9D9; margin-bottom: 5px;"><b>Override_en</b></label>
                     <input type="text" class="form-control" name="override_en">
                 </div>
                 <div class="col-3 text-center">
-                    <button class="btn btn-success col-12" style="padding: top 5px;" type="submit">Criar registro</button>
+                    <button class="btn btn-success col-12" style="padding: top 5px;" type="submit">Create record</button>
                 </div>
             </div>
         </form>

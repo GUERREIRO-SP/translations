@@ -1,5 +1,7 @@
 from django import forms
 
+
+
 class RegisterForms(forms.Form):
     strategy_list = ['ChatGPT', 'Google', 'Manual']
     language_list = ['en-us', 'es-419', 'pt-br']
@@ -50,7 +52,7 @@ class RegisterForms(forms.Form):
             }
         )
     )
-    language = forms.CharField(
+    id_language = forms.CharField(
         label = "language",
         required = True,
         max_length = 25,
@@ -96,14 +98,33 @@ class RegisterForms(forms.Form):
     )
     flag_export = forms.BooleanField()
 
-    # senha = forms.CharField(
-    #     label = "Senha",
-    #     required = True,
-    #     max_length = 70,
-    #     widget = forms.PasswordInput(
-    #         attrs={
-    #             "class": "form-control",
-    #             "placeholder": "Digite sua senha"
-    #         }
-    #     )
-    # )
+
+class RegisterLanguageForms(forms.Form):
+    id = forms.CharField(
+        label = "id",
+        required = True,
+        max_length = 25,
+    )
+    name = forms.CharField(
+        label = "name",
+        required = True,
+        max_length = 255,
+    )
+    rtl_direction = forms.BooleanField()
+
+
+class RegisterProjectForms(forms.Form):
+    id = forms.CharField(
+        label = "id",
+        required = True,
+        max_length = 36,
+    )
+    name = forms.CharField(
+        label = "name",
+        required = True,
+        max_length = 255,
+    )
+    export_strategy = forms.CharField(
+        label = "export_strategy",
+        max_length = 255,
+    )
