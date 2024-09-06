@@ -1,17 +1,24 @@
 from django.urls import path
-from translate.views import index, register, change, export, project, language, proj_lang, create_language, create_project
-from translate.views import RegisterList
+from .views import index, language, project, project_language, translations, list_project_language
+from .views import create_language, create_project, create_project_language, create_translations 
+from .views import ListLanguage, ListProject, ListTranslations    
 
 #     ..... Lista de endereços "rotas" do App translate...
 urlpatterns = [
     path("", index, name='index'),                  # ...página principal do App translate.
-    path("language", language, name='language'), 
-    path("language/create", create_language, name='create_language'),        
-    path("project", project, name='project'),    
+    path("list_language", ListLanguage.as_view(), name='list_language'), 
+    path("insert_language", language, name='insert_language'), 
+    path("language/create", create_language, name='create_language'),  
+
+    path("list_project", ListProject.as_view(), name='list_project'), 
+    path("insert_project", project, name='insert_project'),    
     path("project/create", create_project, name='create_project'),    
-    path("proj_lang", proj_lang, name='proj_lang'),    
-    path("register", register, name='register'),    
-    path("change", change, name='change'),    
-    path("export", export, name='export'), 
-    path("list", RegisterList.as_view(), name='list'), 
+    
+    path("list_project_language", list_project_language, name='list_project_language'),    
+    path("insert_project_language", project_language, name='insert_project_language'),    
+    path("project_language/create", create_project_language, name='create_project_language'),    
+    
+    path("list_translations", ListTranslations.as_view(), name='list_translations'),    
+    path("insert_translations", translations, name='insert_translations'),    
+    path("translations/create", create_translations, name='create_translations'),    
 ]

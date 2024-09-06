@@ -24,16 +24,16 @@ class Project(models.Model):
         return f"Project: [project={self.name}]"
 
 
-class Project_Language(models.Model):
+class ProjectLanguage(models.Model):
 
     id = models.CharField(max_length=36, null = False, blank = False, primary_key=True, default=get_a_uuid, editable=False)
     id_project = models.CharField(max_length=36, null = False, blank = False)
     id_language = models.CharField(max_length=25, null = False, blank = False)
-    txt_Limit = models.IntegerField()
+    txt_limit = models.IntegerField()
 
     # Retorna o valor do registro...
     def __str__(self):
-        return f"Project_Language: [id_project={self.id_project}]"   
+        return f"ProjectLanguage: [id_project={self.id_project}]"   
 
 
 class Translations(models.Model):

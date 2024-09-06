@@ -1,0 +1,51 @@
+{% extends 'translate/base.html' %}
+{% load static %}
+{% block content %} 
+
+    <section class="galeria" style="margin-left: 5em">
+
+        <!-- Ajustar a chamada da função -->
+
+        <form action="project_language/create" method="POST">
+            <!-- csrf_tokeh - Garante a segurança das informações que passamos pelo formulário.
+            Sempre deve ser colocado dentro da tag <form> -->
+            {% csrf_token %}
+            <div class="row">
+                <!-- <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                    <label for="id_project" style="color:#D9D9D9; margin-bottom: 5px;"><b>Id Project</b></label>
+                    <input type="text" class="form-control" name="id_project" required>
+                </div>
+                <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                    <label for="id_language" style="color:#D9D9D9; margin-bottom: 5px;"><b>Id Language</b></label>
+                    <input type="text" class="form-control" name="id_language" required>
+                </div> -->
+                <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                    <label for="id_project" style="color:#D9D9D9; margin-bottom: 5px;"><b>Id Project</b></label>
+                    <select class="form-control" name="id_project" required>
+                        {% for obj in prj %}
+                            <option value="{{ obj.id }}">{{ obj.name }}</option>                            
+                        {% endfor %}
+                    </select> 
+                </div>
+                <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                    <label for="id_language" style="color:#D9D9D9; margin-bottom: 5px;"><b>Id Language</b></label>
+                    <select class="form-control" name="id_language" required>
+                        {% for obj in lng %}
+                            <option value="{{ obj.id }}">{{ obj.name }}</option>                            
+                        {% endfor %}
+                    </select> 
+                </div>
+
+
+                <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                    <label for="txt_limit" style="color:#D9D9D9; margin-bottom: 5px;"><b>Txt Limit</b></label>
+                    <input type="text" class="form-control" name="txt_limit" />
+                </div>
+                <div class="col-3 text-center offset-4">
+                    <button class="btn btn-success col-12" style="padding: top 5px;" type="submit">Create record</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+{% endblock %}

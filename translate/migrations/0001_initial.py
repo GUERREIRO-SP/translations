@@ -29,12 +29,12 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Project_Language',
+            name='ProjectLanguage',
             fields=[
                 ('id', models.CharField(default=translate.generate_uuid.get_a_uuid, editable=False, max_length=36, primary_key=True, serialize=False)),
                 ('id_project', models.CharField(max_length=36)),
                 ('id_language', models.CharField(max_length=25)),
-                ('txt_Limit', models.IntegerField()),
+                ('txt_limit', models.IntegerField()),
             ],
         ),
         migrations.CreateModel(

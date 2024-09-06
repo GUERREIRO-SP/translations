@@ -1,64 +1,34 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views.generic.list import ListView
 
 # ...Importa os modelos das tabelas...
-from translate.models import Translations, Language, Project
-# ...Importa os campos do formulário criado...
-from translate.forms import RegisterForms, RegisterLanguageForms, RegisterProjectForms
+from translate.models import Language, Project, ProjectLanguage, Translations
+
+# ...Importa os campos dos formulários criados...
+from translate.forms import RegisterTranslationsForms, RegisterLanguageForms, RegisterProjectForms, RegisterProjectLanguageForms
 
 from .generate_uuid import get_a_uuid
-from django.views.generic.list import ListView
+
+import sqlite3 as dblite
+
+
 
 def index(request):
     translations = Translations.objects.all()
     return render(request, 'translate/index.html', {"cards": translations})
 
 
+# def register(request):
+#     form = RegisterTranslationsForms()
+#     # Gera o uuid do registro...
+#     uuid7 = get_a_uuid()
+#     return render(request, 'translate/register.html', {"form": form})
 
-def register(request):
-    form = RegisterForms()
-
-    # Gera o uuid do registro...
-    uuid7 = get_a_uuid()
-
-    return render(request, 'translate/register.html', {"form": form})
-
-
-def ins_register(request):
-    form = RegisterForms()
-    if request.method =="POST":
-        form = RegisterForms(request.POST)
-
-        # Valida os campos do formulário
-        if form.is_valid():
-            
-            id = form["id"].value()
-            id_project = form["id_project"].value()
-            strategy = form["strategy"].value()
-            key = form["key"].value()
-            language = form["language"].value()
-            context = form["context"].value()
-            value = form["value"].value()
-            override_en = form["override_en"].value()
-            flag_export = form["flag_export"].value()
-
-            # Gera o uuid do registro...
-            uuid7 = get_a_uuid()
-
-            # ..... Grava o registro na tabela, e direciona para a página de login...
-            register = Translations.objects.create_xxxxxxxx(
-                username = nome,
-                email = email,
-                password = senha
-            )
-            translations.save()
-            return redirect("register")
-
-    return render(request, 'translate/register.html', {"form": form})
 
 
 def language(request):
-    return render(request, 'translate/language.html')
+    return render(request, 'translate/insert_language.html')
 
 def create_language(request):
     if request.method =="POST":
@@ -79,11 +49,11 @@ def create_language(request):
         )
         new_language.save()
 
-    return redirect('language')
+    return redirect('list_language')
 
 
 def project(request):
-    return render(request, 'translate/project.html')
+    return render(request, 'translate/insert_project.html')
 
 def create_project(request):
     if request.method =="POST":
@@ -104,23 +74,135 @@ def create_project(request):
         )
         new_project.save()
 
-    return redirect('project')
+    return redirect('list_project')
+
+
+def list_project_language(request):
+    project_language = load_project_language()
+    
+    print(project_language)
+
+    return render(request, 'translate/list_project_language.html', {"project_language":project_language} )
+
+
+
+# Acessar dados da tabela translations
+def load_project_language():
+    # conexão com DB
+    con = dblite.connect('db.sqlite3')
+    
+    lista = []
+    with con:
+        cur = con.cursor()
+
+        my_query = """
+            SELECT  pl.id, prj.name as project_name, lng.name as language_name, pl.txt_limit 
+            FROM    translate_language as lng,  translate_project as prj,  translate_projectlanguage as pl
+            WHERE   lng.id = pl.id_language  AND  prj.id = pl.id_project   
+        """
+        cur.execute(my_query)
+        dados = cur.fetchall()      # Retorna todos os registros da tabela
+        
+        for i in dados:
+            lista.append({"id": i[0], "project_name": i[1], "language_name": i[2], "txt_limit": i[3]})
+
+    return lista   
 
 
 
 
-def proj_lang(request):
-    return render(request, 'translate/proj_lang.html')
+def project_language(request):
+    projects = Project.objects.all() 
+    languages = Language.objects.all()
 
-def change(request):
-    return render(request, 'translate/change.html')
+    return render(request, 'translate/insert_project_language.html', {"prj":projects, "lng":languages} )
 
-def export(request):
-    return render(request, 'translate/export.html')
+def create_project_language(request):
+    if request.method =="POST":
+        form = RegisterProjectLanguageForms(request.POST)
+
+        # Valida os campos do formulário
+        # if form.is_valid():
+        
+        id_project = form["id_project"].value()
+        id_language = form["id_language"].value()
+        txt_limit = form["txt_limit"].value()
+
+        # ..... Grava o registro na tabela, e direciona para a página de login...
+        new_project_language = ProjectLanguage.objects.create(
+            id_project = id_project,
+            id_language = id_language,
+            txt_limit = txt_limit
+        )
+        new_project_language.save()
+
+    return redirect('list_project_language')
 
 
-##########  Lista Campos  ##########
-class RegisterList(ListView):
+def translations(request):
+    return render(request, 'translate/insert_translations.html')
+
+
+def create_translations(request):
+    if request.method =="POST":
+        form = RegisterTranslationsForms(request.POST)
+
+        # Valida os campos do formulário
+        # if form.is_valid():
+        project = form["id_project"].value()
+        language = form["id_language"].value()
+        strategy = form["strategy"].value()
+        key = form["key"].value()
+        context = form["context"].value()
+        value = form["value"].value()
+        override_en = form["override_en"].value()
+        flag_export = form["flag_export"].value()
+
+        print(f"Projeto: {project}")
+        print(f"Idioma: {language}")
+
+        # ..... Grava o registro na tabela, e direciona para a página de login...
+        new_translations = Translations.objects.create(
+            id_project = project,
+            id_language = language,
+            strategy = strategy,
+            key = key,
+            context = context,
+            value = value,
+            override_en = override_en,
+            flag_export = flag_export,
+        )
+        new_translations.save()
+
+    return redirect('list_translations')
+
+
+
+
+# def change(request):
+#     return render(request, 'translate/change.html')
+
+# def export(request):
+#     return render(request, 'translate/export.html')
+
+
+##########  Classes para Views dos registros  ##########
+class ListTranslations(ListView):
     model = Translations
-    template_name = "translate/list.html"
+    template_name = "translate/list_translations.html"
+
+
+class ListLanguage(ListView):
+    model = Language
+    template_name = "translate/list_language.html"
+
+
+class ListProject(ListView):
+    model = Project
+    template_name = "translate/list_project.html"
+
+
+# class ListProjectLanguage(ListView):
+#     model = ProjectLanguage
+#     template_name = "translate/list_project_language.html"
 

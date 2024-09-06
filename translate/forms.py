@@ -2,7 +2,7 @@ from django import forms
 
 
 
-class RegisterForms(forms.Form):
+class RegisterTranslationsForms(forms.Form):
     strategy_list = ['ChatGPT', 'Google', 'Manual']
     language_list = ['en-us', 'es-419', 'pt-br']
 
@@ -53,7 +53,7 @@ class RegisterForms(forms.Form):
         )
     )
     id_language = forms.CharField(
-        label = "language",
+        label = "id_language",
         required = True,
         max_length = 25,
         widget = forms.TextInput(
@@ -99,6 +99,7 @@ class RegisterForms(forms.Form):
     flag_export = forms.BooleanField()
 
 
+
 class RegisterLanguageForms(forms.Form):
     id = forms.CharField(
         label = "id",
@@ -127,4 +128,20 @@ class RegisterProjectForms(forms.Form):
     export_strategy = forms.CharField(
         label = "export_strategy",
         max_length = 255,
+    )
+
+class RegisterProjectLanguageForms(forms.Form):
+    id_project = forms.CharField(
+        label = "id_project",
+        required = True,
+        max_length = 36,
+    )
+    id_language = forms.CharField(
+        label = "id_language",
+        required = True,
+        max_length = 36,
+    )
+    txt_limit = forms.CharField(
+        label = "txt_limit",
+        max_length = 4,
     )

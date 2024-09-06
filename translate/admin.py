@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from translate.models import Translations, Language, Project, Project_Language
+from translate.models import Translations, Language, Project, ProjectLanguage
 
 class ListTranslations(admin.ModelAdmin):
     list_display = ("id", "id_project", "strategy", "id_language", "value")
@@ -36,4 +36,4 @@ class ListProjectLanguage(admin.ModelAdmin):
     list_filter = ("id_project", "id_language",)
     list_per_page = 10
 
-admin.site.register(Project_Language, ListProjectLanguage)
+admin.site.register(ProjectLanguage, ListProjectLanguage)
