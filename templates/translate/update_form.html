@@ -1,0 +1,30 @@
+{% extends 'translate/base.html' %}
+{% load static %}
+
+<!-- Lib para formatar o formulário -->
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="pagina-inicial">
+        <section class="conteudo">
+            <p class="lead">
+                Preencha todos os campos...
+            </p>
+            <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                <form action="" method="POST">
+
+                    {% csrf_token %}
+
+                    <!-- {{ form.as_p }} -->
+                    {{ form|crispy }}
+
+                    <div class="row">
+                        <div class="col-3 text-center offset-3">
+                            <button type="submit" class="btn btn-success col-12" style="padding: top 5px;">Save record</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+{% endblock %}

@@ -14,17 +14,17 @@
                     <th>Options</th>
                 </tr>
 
-                {% for campo in object_list %}
+                {% for obj in object_list %}
                     <tr>
-                        <td>{{ campo.id }}</td>
-                        <td>{{ campo.id_project }}</td>
-                        <td>{{ campo.id_language }}</td>
-                        <td>{{ campo.strategy }}</td>
-                        <td>{{ campo.key }}</td>
-                        <td>{{ campo.value }}</td>
+                        <td>{{ obj.id }}</td>
+                        <td>{{ obj.id_project }}</td>
+                        <td>{{ obj.id_language }}</td>
+                        <td>{{ obj.strategy }}</td>
+                        <td>{{ obj.key }}</td>
+                        <td>{{ obj.value }}</td>
                         <td>
-                            <a href="" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{% url 'update_translations' obj.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'delete_translations' obj.id %}" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>
                 {% empty %}

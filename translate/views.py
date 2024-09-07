@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.urls import reverse_lazy
+# from django.http import HttpResponse
 from django.views.generic.list import ListView
+from django.views.generic.edit import UpdateView, DeleteView
 
 # ...Importa os modelos das tabelas...
 from translate.models import Language, Project, ProjectLanguage, Translations
@@ -19,16 +21,9 @@ def index(request):
     return render(request, 'translate/index.html', {"cards": translations})
 
 
-# def register(request):
-#     form = RegisterTranslationsForms()
-#     # Gera o uuid do registro...
-#     uuid7 = get_a_uuid()
-#     return render(request, 'translate/register.html', {"form": form})
-
-
-
 def language(request):
     return render(request, 'translate/insert_language.html')
+
 
 def create_language(request):
     if request.method =="POST":
@@ -54,6 +49,7 @@ def create_language(request):
 
 def project(request):
     return render(request, 'translate/insert_project.html')
+
 
 def create_project(request):
     if request.method =="POST":
@@ -85,7 +81,6 @@ def list_project_language(request):
     return render(request, 'translate/list_project_language.html', {"project_language":project_language} )
 
 
-
 # Acessar dados da tabela translations
 def load_project_language():
     # conexão com DB
@@ -109,13 +104,12 @@ def load_project_language():
     return lista   
 
 
-
-
 def project_language(request):
     projects = Project.objects.all() 
     languages = Language.objects.all()
 
     return render(request, 'translate/insert_project_language.html', {"prj":projects, "lng":languages} )
+
 
 def create_project_language(request):
     if request.method =="POST":
@@ -158,9 +152,6 @@ def create_translations(request):
         override_en = form["override_en"].value()
         flag_export = form["flag_export"].value()
 
-        print(f"Projeto: {project}")
-        print(f"Idioma: {language}")
-
         # ..... Grava o registro na tabela, e direciona para a página de login...
         new_translations = Translations.objects.create(
             id_project = project,
@@ -176,14 +167,6 @@ def create_translations(request):
 
     return redirect('list_translations')
 
-
-
-
-# def change(request):
-#     return render(request, 'translate/change.html')
-
-# def export(request):
-#     return render(request, 'translate/export.html')
 
 
 ##########  Classes para Views dos registros  ##########
@@ -202,7 +185,50 @@ class ListProject(ListView):
     template_name = "translate/list_project.html"
 
 
-# class ListProjectLanguage(ListView):
-#     model = ProjectLanguage
-#     template_name = "translate/list_project_language.html"
+########## UPDATE ########## 
+class UpdateLanguage(UpdateView):
+    model = Language
+    fields = ['id', 'name', 'rtl_direction']
+    template_name = "translate/update_form.html"
+    success_url = reverse_lazy("list_language")
+
+class UpdateProject(UpdateView):
+    model = Project
+    fields = ['id', 'name', 'export_strategy']
+    template_name = "translate/update_form.html"
+    success_url = reverse_lazy("list_project")
+
+class UpdateProjectLanguage(UpdateView):
+    model = ProjectLanguage
+    fields = ['id_project', 'id_language', 'txt_limit']
+    template_name = "translate/update_form.html"
+    success_url = reverse_lazy("list_project_language")
+
+class UpdateTranslations(UpdateView):
+    model = Translations
+    fields = ['id_project', 'id_language', 'strategy', 'key', 'context', 'value', 'override_en', 'flag_export']
+    template_name = "translate/update_form.html"
+    success_url = reverse_lazy("list_translations")
+
+
+########## DELETE ########## 
+class DeleteLanguage(DeleteView):
+    model = Language
+    template_name = "translate/delete_form.html"
+    success_url = reverse_lazy("list_language")
+
+class DeleteProject(DeleteView):
+    model = Project
+    template_name = "translate/delete_form.html"
+    success_url = reverse_lazy("list_project")
+
+class DeleteProjectLanguage(DeleteView):
+    model = ProjectLanguage
+    template_name = "translate/delete_form.html"
+    success_url = reverse_lazy("list_project_language")
+
+class DeleteTranslations(DeleteView):
+    model = Translations
+    template_name = "translate/delete_form.html"
+    success_url = reverse_lazy("list_translations")
 

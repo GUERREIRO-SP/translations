@@ -16,8 +16,8 @@
                         <td>{{ obj.language_name }}</td>
                         <td>{{ obj.txt_limit }}</td>
                         <td>
-                            <a href="" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{% url 'update_project_language' obj.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'delete_project_language' obj.id %}" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>
                 {% empty %}

@@ -10,7 +10,7 @@ class Language(models.Model):
 
     # Retorna o valor do registro...
     def __str__(self):
-        return f"Language: [language={self.id}]"   
+        return f"Language: [{self.id}]"   
 
 
 class Project(models.Model):
@@ -21,7 +21,7 @@ class Project(models.Model):
 
     # Retorna o valor do registro...
     def __str__(self):
-        return f"Project: [project={self.name}]"
+        return f"Project: [{self.name}]"
 
 
 class ProjectLanguage(models.Model):
@@ -33,7 +33,7 @@ class ProjectLanguage(models.Model):
 
     # Retorna o valor do registro...
     def __str__(self):
-        return f"ProjectLanguage: [id_project={self.id_project}]"   
+        return f"ProjectLanguage: [{self.id_project}]"   
 
 
 class Translations(models.Model):
@@ -56,4 +56,4 @@ class Translations(models.Model):
 
     # Retorna o valor do registro...
     def __str__(self):
-        return f"Translate: [value={self.value}]"
+        return f"Translate: [{self.value}]"

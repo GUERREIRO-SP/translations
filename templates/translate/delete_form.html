@@ -1,0 +1,30 @@
+{% extends 'translate/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="pagina-inicial">
+        <section class="conteudo">
+            <form action="" method="POST">
+
+                <div class="form-group col-12 col-lg-12"  style="margin-top: 30px;">
+                    <label for="flag_export" style="color:#D9D9D9; margin-bottom: 5px;"><b>Confirm the deletion of the record?</b></label>
+                    <br><br>
+                    <label for="flag_export" style="color:#D9D9D9; margin-bottom: 5px;"><b>{{ object }}</b></label>
+                    <br><br>
+                </div>
+    
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+                <div class="row">
+                    <div class="col-12 text-center offset-12">
+                        <button type="submit" class="btn btn-danger col-12" style="padding: top 5px;">Delete record</a>
+                    </div>
+                    <div class="col-12 text-center offset-12">
+                        <a href="#" onclick="history.back()" class="btn btn-success col-12" style="padding: top 5px;">to go back</a>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+{% endblock %}

@@ -10,14 +10,14 @@
                     <th>RTL Direction</th>
                 </tr>
 
-                {% for campo in object_list %}
+                {% for obj in object_list %}
                     <tr>
-                        <td>{{ campo.id }}</td>
-                        <td>{{ campo.name }}</td>
-                        <td>{{ campo.rtl_direction }}</td>
+                        <td>{{ obj.id }}</td>
+                        <td>{{ obj.name }}</td>
+                        <td>{{ obj.rtl_direction }}</td>
                         <td>
-                            <a href="" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{% url 'update_language' obj.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'delete_language' obj.id %}" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>
                 {% empty %}
