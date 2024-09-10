@@ -114,6 +114,15 @@ class RegisterLanguageForms(forms.Form):
     rtl_direction = forms.BooleanField()
 
 
+class UpdateLanguageForms(forms.Form):
+    name = forms.CharField(
+        label = "name",
+        required = True,
+        max_length = 255,
+    )
+    rtl_direction = forms.BooleanField()
+
+
 class RegisterProjectForms(forms.Form):
     id = forms.CharField(
         label = "id",

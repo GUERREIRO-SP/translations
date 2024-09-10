@@ -3,31 +3,29 @@
 {% block content %} 
 
     <section class="galeria" style="margin-left: 5em">
-
-        <!-- http://127.0.0.1:8000/language/create -->
-
-        <form action="language/create" method="POST">
+      
+        <form action="{% url 'update_language' lng.id %}" method="POST">
             <!-- csrf_tokeh - Garante a segurança das informações que passamos pelo formulário.
             Sempre deve ser colocado dentro da tag <form> -->
             {% csrf_token %}
             <div class="row">
                 <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
                     <label for="id" style="color:#D9D9D9; margin-bottom: 5px;"><b>Id</b></label>
-                    <input type="text" class="form-control" name="id" placeholder="language id..." required>
+                    <input type="text" class="form-control" disabled value="{{ lng.id }}">
                 </div>
                 <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
                     <label for="id_project" style="color:#D9D9D9; margin-bottom: 5px;"><b>Name</b></label>
-                    <input type="text" class="form-control" name="name" placeholder="language name..." required>
+                    <input type="text" class="form-control" name="name" value="{{ lng.name }}" required>
                 </div>
                 <div class="form-group col-3 col-lg-3"  style="margin-top: 30px;">
                     <div class="form-check"> 
-                        <input class="form-check-input" type="checkbox" id="gridCheck" name="rtl_direction">
+                        <input class="form-check-input" type="checkbox" id="gridCheck" name="rtl_direction" value="{{ lng.rtl_direction }}">
                         <label for="rtl_direction" style="color:#D9D9D9; margin-bottom: 5px;"><b>RTL direction</b></label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6 text-center offset-3">
-                        <button class="btn btn-success col-6" style="padding: top 5px;" type="submit">Create record</button>
+                        <button class="btn btn-success col-6" style="padding: top 5px;" type="submit">Update record</button>
                     </div>
                     <div class="col-6 text-center offset-3">
                         <a href="#" onclick="history.back()" class="btn btn-warning col-6" style="padding: top 5px;">to go back</a>

@@ -1,10 +1,22 @@
 
 
+edição registros...
+https://www.youtube.com/watch?v=mRc4XEEfSdI
+
+https://youtu.be/mRc4XEEfSdI?feature=shared
+
+
+ <!-- {{ form|crispy }} -->
+
+
+
 Formul�rios CRUD em python
 
 https://www.usandopy.com/pt/projetos-em-python/como-criar-formulario-em-python-crud-em-python-com-sqlite/
 
 https://www.usandopy.com/pt/categoria/python-tkinter/
+
+
 
 
 cbo_strategy

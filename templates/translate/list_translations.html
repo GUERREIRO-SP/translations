@@ -2,25 +2,32 @@
 {% load static %}
 {% block content %}
     <div class="pagina-inicial">
-        <div class="table-responsive">
+        <div class="table-responsive" style="color:#D9D9D9; margin-bottom: 5px;">
+            <tr>
+                <h2 colspan="6"> Translations</h2>
+                <br><br>
+            </tr>
             <table class="table table_striped" style="color:#D9D9D9; margin-bottom: 5px;">
                 <tr>
-                    <th>Id</th>
+                    <!-- <th>Id</th> -->
                     <th>Project</th>
                     <th>Strategy</th>
-                    <th>Translation</th>
                     <th>Language</th>
+                    <th>Key</th>
                     <th>Context</th>
-                    <th>Options</th>
+                    <th>Translation</th>
                 </tr>
 
-                {% for obj in object_list %}
+                <!-- id, id_project, project_name, strategy, key, language_name, context, value, flag_export, override_en  -->
+
+                {% for obj in translations %}
                     <tr>
-                        <td>{{ obj.id }}</td>
-                        <td>{{ obj.id_project }}</td>
-                        <td>{{ obj.id_language }}</td>
+                        <!-- <td>{{ obj.id }}</td> -->
+                        <td>{{ obj.project_name }}</td>
                         <td>{{ obj.strategy }}</td>
+                        <td>{{ obj.language_name }}</td>
                         <td>{{ obj.key }}</td>
+                        <td>{{ obj.context }}</td>
                         <td>{{ obj.value }}</td>
                         <td>
                             <a href="{% url 'update_translations' obj.id %}" class="btn btn-warning btn-sm">Edit</a>
@@ -29,15 +36,15 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <td colspan="6"> Não há registros na tabela...</td>
+                        <td colspan="6"> There are no records in the table...</td>
                     </tr>
                 {% endfor%}
 
             </table>
         </div>
         <div class="row">
-            <div class="col-6 text-center offset-3">
-                <a href="{% url 'insert_translations' %}" class="btn btn-success col-12" style="padding: top 5px;">New record</a>
+            <div class="col-12 text-center offset-2">
+                <a href="{% url 'insert_translations' %}" class="btn btn-success col-6" style="padding: top 5px;">New record</a>
             </div>
         </div>
     </div>

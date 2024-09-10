@@ -33,7 +33,7 @@ class ProjectLanguage(models.Model):
 
     # Retorna o valor do registro...
     def __str__(self):
-        return f"ProjectLanguage: [{self.id_project}]"   
+        return f"Project Language: [{self.id_project}]"   
 
 
 class Translations(models.Model):
