@@ -9,19 +9,20 @@
             Sempre deve ser colocado dentro da tag <form> -->
             {% csrf_token %}
             <div class="row">
-                <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                <div class="col-6 col-lg-6" style="margin-bottom: 10px;">
                     <label for="id" style="color:#D9D9D9; margin-bottom: 5px;"><b>Id</b></label>
                     <input type="text" class="form-control" disabled value="{{ lng.id }}">
+                </div>
+                <div class="form-group col-3 col-lg-3"  style="margin-top: 30px;">
+                    <div class="form-check"> 
+                        <!-- checked / -->
+                        <input class="form-check-input" type="checkbox" id="gridCheck" name="rtl_direction" value="True" {% if lng.rtl_direction %} checked {% endif %}>
+                        <label for="rtl_direction" style="color:#D9D9D9; margin-bottom: 5px;"><b>RTL direction</b></label>
+                    </div>
                 </div>
                 <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
                     <label for="id_project" style="color:#D9D9D9; margin-bottom: 5px;"><b>Name</b></label>
                     <input type="text" class="form-control" name="name" value="{{ lng.name }}" required>
-                </div>
-                <div class="form-group col-3 col-lg-3"  style="margin-top: 30px;">
-                    <div class="form-check"> 
-                        <input class="form-check-input" type="checkbox" id="gridCheck" name="rtl_direction" value="{{ lng.rtl_direction }}">
-                        <label for="rtl_direction" style="color:#D9D9D9; margin-bottom: 5px;"><b>RTL direction</b></label>
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col-6 text-center offset-3">

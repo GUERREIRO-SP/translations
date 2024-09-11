@@ -22,6 +22,7 @@ def index(request):
     return render(request, 'translate/index.html', {"cards": translations})
 
 
+###########  LANGUAGE  ###########
 def language(request):
     return render(request, 'translate/insert_language.html')
 
@@ -46,6 +47,29 @@ def create_language(request):
         new_language.save()
 
     return redirect('list_language')
+
+
+def update_language(request, id):
+    if request.method == "POST":
+        form = UpdateLanguageForms(request.POST)
+        
+        id_language = id
+        name_language = form["name"].value()
+        flag_direction = form["rtl_direction"].value()
+
+        # print(f"Language - DIRECTION: {flag_direction}")
+
+        # ..... Grava o registro na tabela, e direciona para o list...
+        # upd_language = 
+        Language.objects.filter(id=id_language).update(
+            name = name_language,
+            rtl_direction = flag_direction
+        )
+
+    return redirect('list_language')
+
+###########  END LANGUAGE  ###########
+
 
 
 def project(request):
@@ -215,26 +239,6 @@ def create_translations(request):
 
     return redirect('list_translations')
 
-
-def update_language(request, id):
-    if request.method =="POST":
-        form = UpdateLanguageForms(request.POST)
-        
-        id_language = id
-        name_language = form["name"].value()
-        rtl_direction = form["rtl_direction"].value()
-
-        print(f"Language - DIRECTION: {rtl_direction}")
-
-        # ..... Grava o registro na tabela, e direciona para o list...
-        # upd_language = 
-        Language.objects.filter(id=id_language).update(
-            name = name_language,
-            rtl_direction = rtl_direction
-        )
-
-    return redirect('list_language')
-    
 
 
 def update_project(request, pk):
