@@ -123,6 +123,66 @@ class UpdateLanguageForms(forms.Form):
     rtl_direction = forms.BooleanField()
 
 
+class UpdateTranslationsForms(forms.Form):
+    id_project = forms.CharField(
+        label = "id_project",
+        required = True,
+        max_length = 36,
+    )
+    key = forms.CharField(
+        label = "key",
+        required = True,
+        max_length = 255,
+    )
+    strategy = forms.CharField(
+        label = "strategy",
+        required = True,
+        max_length = 255,
+    )
+    id_language = forms.CharField(
+        label = "id_language",
+        required = True,
+        max_length = 25,
+    )
+    context = forms.CharField(
+        label = "context",
+        required = True,
+        max_length = 1000,
+    )
+    value = forms.CharField(
+        label = "value",
+        required = True,
+        max_length = 1000,
+    )
+    override_en = forms.CharField(
+        label = "override_en",
+        required = True,
+        max_length = 1000,
+    )
+    flag_export = forms.BooleanField()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class RegisterProjectForms(forms.Form):
     id = forms.CharField(
         label = "id",

@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import index, language, project, project_language, translations, list_project_language, list_translations
-from .views import create_language, create_project, create_project_language, create_translations, tela_update_language, update_language
+from .views import create_language, create_project, create_project_language, create_translations
+from .views import tela_update_language, update_language, tela_update_translations, update_translations
+
 from .views import ListLanguage, ListProject, ListTranslations
 from .views import UpdateLanguage, UpdateProject, UpdateProjectLanguage, UpdateTranslations 
 from .views import DeleteLanguage, DeleteProject, DeleteProjectLanguage, DeleteTranslations
@@ -26,11 +28,12 @@ urlpatterns = [
     path("translations/create", create_translations, name='create_translations'),    
 
     path("tela_update_language/<str:id>", tela_update_language, name='tela_update_language'), 
+    path("tela_update_translations/<str:id>", tela_update_translations, name='tela_update_translations'), 
     
     path("language/update/<str:id>", update_language, name='update_language'), 
     path("update_project/<str:pk>", UpdateProject.as_view(), name='update_project'), 
     path("update_project_language/<str:pk>", UpdateProjectLanguage.as_view(), name='update_project_language'), 
-    path("update_translations/<str:pk>", UpdateTranslations.as_view(), name='update_translations'), 
+    path("update_translations/<str:pk>", update_translations, name='update_translations'), 
 
     path("delete_language/<str:pk>", DeleteLanguage.as_view(), name='delete_language'), 
     path("delete_project/<str:pk>", DeleteProject.as_view(), name='delete_project'), 

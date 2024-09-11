@@ -8,7 +8,8 @@ from django.views.generic.edit import UpdateView, DeleteView
 from translate.models import Language, Project, ProjectLanguage, Translations
 
 # ...Importa os campos dos formulários criados...
-from translate.forms import RegisterTranslationsForms, RegisterLanguageForms, RegisterProjectForms, RegisterProjectLanguageForms, UpdateLanguageForms
+from translate.forms import RegisterTranslationsForms, RegisterLanguageForms, RegisterProjectForms, RegisterProjectLanguageForms
+from translate.forms import UpdateLanguageForms, UpdateTranslationsForms
 
 from .generate_uuid import get_a_uuid
 
@@ -36,7 +37,7 @@ def create_language(request):
         name_language = form["name"].value()
         rtl_direction = form["rtl_direction"].value()
 
-        # ..... Grava o registro na tabela, e direciona para a página de login...
+        # ..... Grava o registro na tabela, e direciona para o list...
         new_language = Language.objects.create(
             id = id_language,
             name = name_language,
@@ -62,7 +63,7 @@ def create_project(request):
         name_project = form["name"].value()
         export_strategy = form["export_strategy"].value()
 
-        # ..... Grava o registro na tabela, e direciona para a página de login...
+        # ..... Grava o registro na tabela, e direciona para o list...
         new_project = Project.objects.create(
             # id = id_project,
             name = name_project,
@@ -108,8 +109,7 @@ def load_project_language():
 def list_translations(request):
     translations = load_translations()
     
-    print(translations)
-
+    # print(translations)
     return render(request, 'translate/list_translations.html', {"translations":translations} )
 
 
@@ -122,7 +122,7 @@ def load_translations():
         cur = con.cursor()
 
         my_query = """
-            SELECT  tra.id, tra.id_project, prj.name as project_name, tra.strategy, tra.key, tra.id_language as language_name, 
+            SELECT  tra.id, tra.id_project, prj.name AS project_name, tra.strategy, tra.key, tra.id_language AS language_name, 
                     tra.context, tra.value, tra.flag_export, tra.override_en 
             FROM    translate_translations AS tra, translate_project AS prj
             WHERE   tra.id_project = prj.id   
@@ -130,8 +130,15 @@ def load_translations():
         cur.execute(my_query)
         dados = cur.fetchall()      # Retorna todos os registros da tabela
         
+        
+        
+        
+        print(f"QUERY TRANSLATIONS: {dados}")
+
+
+
         for i in dados:
-            lista.append({"id": i[0], "id_project": i[1], "project_name": i[2], "language_name": i[3], "strategy": i[4], "context": i[5], "key": i[6], "override_en": i[7]})
+            lista.append({"id": i[0], "id_project": i[1], "project_name": i[2], "strategy": i[3], "language_name": i[5], "key": i[4], "override_en": i[9]})
 
     return lista   
 
@@ -160,7 +167,7 @@ def create_project_language(request):
         id_language = form["id_language"].value()
         txt_limit = form["txt_limit"].value()
 
-        # ..... Grava o registro na tabela, e direciona para a página de login...
+        # ..... Grava o registro na tabela, e direciona para o list...
         new_project_language = ProjectLanguage.objects.create(
             id_project = id_project,
             id_language = id_language,
@@ -193,7 +200,7 @@ def create_translations(request):
         override_en = form["override_en"].value()
         flag_export = form["flag_export"].value()
 
-        # ..... Grava o registro na tabela, e direciona para a página de login...
+        # ..... Grava o registro na tabela, e direciona para o list...
         new_translations = Translations.objects.create(
             id_project = project,
             id_language = language,
@@ -212,22 +219,19 @@ def create_translations(request):
 def update_language(request, id):
     if request.method =="POST":
         form = UpdateLanguageForms(request.POST)
-
-        # Valida os campos do formulário
-        # if form.is_valid():
         
         id_language = id
         name_language = form["name"].value()
         rtl_direction = form["rtl_direction"].value()
 
-# MeuModelo.objects.filter(campo1=42).update(campo2 = F('campo2') + 1)
+        print(f"Language - DIRECTION: {rtl_direction}")
 
-        # ..... Grava o registro na tabela, e direciona para a página de login...
-        upd_language = Language.objects.filter(id=id_language).update(
+        # ..... Grava o registro na tabela, e direciona para o list...
+        # upd_language = 
+        Language.objects.filter(id=id_language).update(
             name = name_language,
             rtl_direction = rtl_direction
         )
-        # upd_language.save()
 
     return redirect('list_language')
     
@@ -242,7 +246,33 @@ def update_projectlanguage(request, pk):
 
 
 def update_translations(request, pk):
-    pass
+    if request.method =="POST":
+        form = UpdateTranslationsForms(request.POST)
+
+        id_translations = id
+        id_project = form["id_project"].value()
+        key = form["key"].value()
+        strategy = form["strategy"].value()
+        id_language = form["id_language"].value()
+        context = form["context"].value()
+        value = form["value"].value()
+        override_en = form["override_en"].value()
+        flag_export = form["flag_export"].value()
+
+        # ..... Grava o registro na tabela, e direciona para o list...
+        upd_translations = Translations.objects.filter(id=id_translations).update(
+            id_project = id_project,
+            key = key,
+            strategy = strategy,
+            id_language = id_language,
+            context = context,
+            value = value,
+            override_en = override_en,
+            flag_export = flag_export
+        )
+
+    return redirect('list_language')
+    
 
 
 ########### MONTAGEM DAS TELAS ###########
@@ -252,6 +282,17 @@ def tela_update_language(request, **kwargs):
     lng = Language.objects.get(id=id)
     
     return render(request, 'translate/update_language.html', {"lng":lng})
+
+
+def tela_update_translations(request, **kwargs):
+    projects = Project.objects.all() 
+    languages = Language.objects.all()
+
+    print(kwargs)
+    id = kwargs["id"]
+    tra = Translations.objects.get(id=id)
+    
+    return render(request, 'translate/update_translations.html', {"tra":tra, "prj":projects, "lng":languages})
 
 
 
