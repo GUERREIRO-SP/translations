@@ -1,7 +1,112 @@
 from django import forms
 
+###############  LANGUAGE  ###############
+##########################################
+class RegisterLanguageForms(forms.Form):
+    id = forms.CharField(
+        label = "id",
+        required = True,
+        max_length = 25,
+    )
+    name = forms.CharField(
+        label = "name",
+        required = True,
+        max_length = 255,
+    )
+    rtl_direction = forms.BooleanField()
 
 
+class UpdateLanguageForms(forms.Form):
+    name = forms.CharField(
+        label = "name",
+        required = True,
+        max_length = 255,
+    )
+    rtl_direction = forms.BooleanField()
+
+############## END LANGUAGE  #############
+##########################################
+
+
+###############  PROJECT  ################
+##########################################
+class RegisterProjectForms(forms.Form):
+    id = forms.CharField(
+        label = "id",
+        required = True,
+        max_length = 36,
+    )
+    name = forms.CharField(
+        label = "name",
+        required = True,
+        max_length = 255,
+    )
+    export_strategy = forms.CharField(
+        label = "export_strategy",
+        max_length = 255,
+    )
+
+
+class UpdateProjectForms(forms.Form):
+    name = forms.CharField(
+        label = "name",
+        required = True,
+        max_length = 255,
+    )
+    export_strategy = forms.CharField(
+        label = "export_strategy",
+        max_length = 255,
+    )
+
+#############  END PROJECT  ##############
+##########################################
+
+
+##########  PROJECT_LANGUAGE  ############
+##########################################
+class RegisterProjectLanguageForms(forms.Form):
+    id = forms.CharField(
+        label = "id",
+        required = True,
+        max_length = 36,
+    )
+    id_project = forms.CharField(
+        label = "id_project",
+        required = True,
+        max_length = 36,
+    )
+    id_language = forms.CharField(
+        label = "id_language",
+        required = True,
+        max_length = 25,
+    )
+    txt_limit = forms.IntegerField(
+        label = "txt_limit",
+        required = True,
+    )
+
+class UpdateProjectLanguageForms(forms.Form):
+    id_project = forms.CharField(
+        label = "id_project",
+        required = True,
+        max_length = 36,
+    )
+    id_language = forms.CharField(
+        label = "id_language",
+        required = True,
+        max_length = 25,
+    )
+    txt_limit = forms.IntegerField(
+        label = "txt_limit",
+        required = True,
+    )
+
+#########  END PROJECT_LANGUAGE  #########
+##########################################
+
+
+#############  TRANSLATIONS  #############
+##########################################
 class RegisterTranslationsForms(forms.Form):
     strategy_list = ['ChatGPT', 'Google', 'Manual']
     language_list = ['en-us', 'es-419', 'pt-br']
@@ -99,30 +204,6 @@ class RegisterTranslationsForms(forms.Form):
     flag_export = forms.BooleanField()
 
 
-
-class RegisterLanguageForms(forms.Form):
-    id = forms.CharField(
-        label = "id",
-        required = True,
-        max_length = 25,
-    )
-    name = forms.CharField(
-        label = "name",
-        required = True,
-        max_length = 255,
-    )
-    rtl_direction = forms.BooleanField()
-
-
-class UpdateLanguageForms(forms.Form):
-    name = forms.CharField(
-        label = "name",
-        required = True,
-        max_length = 255,
-    )
-    rtl_direction = forms.BooleanField()
-
-
 class UpdateTranslationsForms(forms.Form):
     id_project = forms.CharField(
         label = "id_project",
@@ -161,6 +242,8 @@ class UpdateTranslationsForms(forms.Form):
     )
     flag_export = forms.BooleanField()
 
+########### END TRANSLATIONS  ############
+##########################################
 
 
 
@@ -212,5 +295,4 @@ class RegisterProjectLanguageForms(forms.Form):
     )
     txt_limit = forms.CharField(
         label = "txt_limit",
-        max_length = 4,
     )

@@ -1,19 +1,25 @@
 from django.urls import path
-from .views import index, language, project, project_language, translations, list_project_language, list_translations
+from .views import index, export_translations, generate_csv
+from .views import language, project, project_language, translations, list_project_language, list_translations
 from .views import create_language, create_project, create_project_language, create_translations
-from .views import tela_update_language, update_language, tela_update_translations, update_translations
+from .views import tela_update_language, tela_update_project, tela_update_projectlanguage, tela_update_translations
+from .views import update_language, update_project, update_projectlanguage, update_translations
 
-from .views import ListLanguage, ListProject, ListTranslations
-from .views import UpdateLanguage, UpdateProject, UpdateProjectLanguage, UpdateTranslations 
+from .views import ListLanguage, ListProject
+# , ListTranslations
+# from .views import UpdateLanguage, UpdateProject, UpdateProjectLanguage, UpdateTranslations 
 from .views import DeleteLanguage, DeleteProject, DeleteProjectLanguage, DeleteTranslations
 
 
 #     ..... Lista de endereços "rotas" do App translate...
 urlpatterns = [
     path("", index, name='index'),                  # ...página principal do App translate.
+
+    path("export_translations", export_translations, name='export_translations'), 
+    path("generate_csv", generate_csv, name='generate_csv'),     
+    
     path("list_language", ListLanguage.as_view(), name='list_language'), 
     path("list_project", ListProject.as_view(), name='list_project'), 
-    # path("list_translations", ListTranslations.as_view(), name='list_translations'),    
     path("list_translations", list_translations, name='list_translations'),    
     path("list_project_language", list_project_language, name='list_project_language'),    
 
@@ -28,12 +34,14 @@ urlpatterns = [
     path("translations/create", create_translations, name='create_translations'),    
 
     path("tela_update_language/<str:id>", tela_update_language, name='tela_update_language'), 
+    path("tela_update_project/<str:id>", tela_update_project, name='tela_update_project'), 
+    path("tela_update_projectlanguage/<str:id>", tela_update_projectlanguage, name='tela_update_projectlanguage'), 
     path("tela_update_translations/<str:id>", tela_update_translations, name='tela_update_translations'), 
     
     path("language/update/<str:id>", update_language, name='update_language'), 
-    path("update_project/<str:pk>", UpdateProject.as_view(), name='update_project'), 
-    path("update_project_language/<str:pk>", UpdateProjectLanguage.as_view(), name='update_project_language'), 
-    path("update_translations/<str:pk>", update_translations, name='update_translations'), 
+    path("update_project/<str:id>", update_project, name='update_project'), 
+    path("update_project_language/<str:id>", update_projectlanguage, name='update_projectlanguage'), 
+    path("update_translations/<str:id>", update_translations, name='update_translations'), 
 
     path("delete_language/<str:pk>", DeleteLanguage.as_view(), name='delete_language'), 
     path("delete_project/<str:pk>", DeleteProject.as_view(), name='delete_project'), 

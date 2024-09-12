@@ -1,29 +1,39 @@
 {% extends 'translate/base.html' %}
 {% load static %}
+{% block content %} 
 
-{% block content %}
-    <div class="pagina-inicial">
-        <section class="conteudo" class="col-10 col-lg-10" style="margin-bottom: 10px;">
-            <p class="lead" style="color:#D9D9D9; margin-bottom: 5px;">
-                Preencha todos os campos...
-            </p>
-            <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
-                <form action="" method="POST" style="color:#D9D9D9; margin-bottom: 5px;">
+    <section class="galeria" style="margin-left: 5em">
 
-                    {% csrf_token %}
+        <!-- Ajustar a chamada da função -->
 
-                    {{ form.as_p }}
-                    <br><br>
-                    <div class="row">
-                        <div class="col-12 text-center offset-12">
-                            <button type="submit" class="btn btn-success col-12" style="padding: top 5px;">Save record</a>
-                        </div>
-                        <div class="col-12 text-center offset-12">
-                            <a href="#" onclick="history.back()" class="btn btn-warning col-12" style="padding: top 5px;">to go back</a>
-                        </div>
+        <form action="{% url 'update_project' prj.id %}" method="POST">
+            <!-- csrf_tokeh - Garante a segurança das informações que passamos pelo formulário.
+            Sempre deve ser colocado dentro da tag <form> -->
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                    <label for="id" style="color:#D9D9D9; margin-bottom: 5px;"><b>Id</b></label>
+                    <input type="text" class="form-control" disabled value="{{ prj.id }}">
+                </div>
+                <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                    <label for="name_project" style="color:#D9D9D9; margin-bottom: 5px;"><b>Project name</b></label>
+                    <input type="text" class="form-control" name="name" value="{{ prj.name }}" required>
+                </div>
+                <!--  -->
+                <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
+                    <label for="export_strategy" style="color:#D9D9D9; margin-bottom: 5px;"><b>Export strategy</b></label>
+                    <input type="text" class="form-control" name="export_strategy" value="{{ prj.export_strategy }}">
+                </div>
+                <div class="row">
+                    <div class="col-6 text-center offset-2">
+                        <button class="btn btn-success col-6" style="padding: top 5px;" type="submit">Update record</button>
                     </div>
-                </form>
+                    <div class="col-6 text-center offset-2">
+                        <a href="#" onclick="history.back()" class="btn btn-warning col-6" style="padding: top 5px;">to go back</a>
+                    </div>
+                </div>
             </div>
-        </section>
-    </div>
+        </form>
+    </section>
+
 {% endblock %}

@@ -16,7 +16,7 @@
                         <td>{{ obj.name }}</td>
                         <td>{{ obj.export_strategy }}</td>
                         <td>
-                            <a href="{% url 'update_project' obj.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'tela_update_project' obj.id %}" class="btn btn-warning btn-sm">Edit</a>
                             <a href="{% url 'delete_project' obj.id %}" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>

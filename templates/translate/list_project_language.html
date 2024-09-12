@@ -10,13 +10,13 @@
                     <th>Txt Limit</th>
                 </tr>
 
-                {% for obj in project_language %}
+                {% for obj in prj_lng %}
                     <tr>
                         <td>{{ obj.project_name }}</td>
                         <td>{{ obj.language_name }}</td>
                         <td>{{ obj.txt_limit }}</td>
                         <td>
-                            <a href="{% url 'update_project_language' obj.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'tela_update_projectlanguage' obj.id %}" class="btn btn-warning btn-sm">Edit</a>
                             <a href="{% url 'delete_project_language' obj.id %}" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>

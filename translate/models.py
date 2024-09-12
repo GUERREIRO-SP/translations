@@ -10,7 +10,7 @@ class Language(models.Model):
 
     # Retorna o valor do registro...
     def __str__(self):
-        return f"Language: [{self.id}]"   
+        return f"Language: [{self.name}]"   
 
 
 class Project(models.Model):
