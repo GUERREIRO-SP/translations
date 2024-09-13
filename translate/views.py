@@ -33,15 +33,50 @@ def export_translations(request):
 
     return render(request,'translate/export_translations.html', {"prj":projects})
 
-
-def generate_csv(id_prj):
-
-    print(f"Gerando csv: {id_prj}")
+def generate_csv(request, id_prj):
+    if request.method =="POST":
+        print(f"Gerando csv: {id_prj}")
 
     return redirect('export_translations')
 
 ###############  END CSV  ################
 ##########################################
+
+##########################################
+##########  CRIA TB TEMPORARIA  ##########
+##########################################
+
+def create_table_export_csv_tmp():
+    # conexão com DB
+    con = dblite.connect('db.sqlite3')
+    cur = con.cursor()
+
+    sql_drop = "DROP TABLE IF EXISTS export_csv_tmp;";
+    con.execute(sql_drop);
+
+    # qtd = cur.execute("SELECT count(*) FROM db.sqlite3 WHERE type='table' AND name='export_csv_tmp';").fetchmany()
+
+    # Cria Tabelas
+    create_table_csv_tmp = """
+    CREATE TABLE export_csv_tmp(
+        project(255) PRIMARY KEY,
+        id_project VARCHAR(36) NOT NULL,	
+        strategy VARCHAR(255) NOT NULL,	
+        key VARCHAR(255) NOT NULL,		
+        language VARCHAR(25) NOT NULL,	
+        context VARCHAR(1000),	
+        value VARCHAR(1000),	
+        override_en VARCHAR(1000),	
+        flag_export BOOLEAN);
+    """
+    with con:
+        cur = con.cursor()
+        cur.execute(create_table_csv_tmp)
+
+    cur.commit()
+    cur.close()
+
+
 
 
 ##########################################

@@ -20,7 +20,8 @@
                 <br><br>
                 <div class="row">
                     <div class="col-12 text-center offset-12">
-                        <a href="{% url 'generate_csv' prj.id_project %}" class="btn btn-primary col-12" style="padding: top 5px;">Generate CSV</a>
+                        <!-- prj.id_project -->
+                        <a href="{% url 'generate_csv' obj.id %}" class="btn btn-primary col-12" style="padding: top 5px;">Generate CSV</a>
                         <!-- <button type="submit" class="btn btn-primary col-12" style="padding: top 5px;">Generate CSV</a> -->
                     </div>
                     <div class="col-12 text-center offset-12">
