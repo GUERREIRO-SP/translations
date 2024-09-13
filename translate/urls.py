@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, export_translations, generate_csv
+from .views import index 
 from .views import language, project, project_language, translations, list_project_language, list_translations
 from .views import create_language, create_project, create_project_language, create_translations
 from .views import tela_update_language, tela_update_project, tela_update_projectlanguage, tela_update_translations
@@ -10,12 +10,15 @@ from .views import ListLanguage, ListProject
 # from .views import UpdateLanguage, UpdateProject, UpdateProjectLanguage, UpdateTranslations 
 from .views import DeleteLanguage, DeleteProject, DeleteProjectLanguage, DeleteTranslations
 
+from .generate_csv import load_projects, generate_csv
+
+
 
 #     ..... Lista de endereços "rotas" do App translate...
 urlpatterns = [
     path("", index, name='index'),                  # ...página principal do App translate.
 
-    path("export_translations", export_translations, name='export_translations'), 
+    path("export_translations", load_projects, name='export_translations'), 
     path("generate_csv", generate_csv, name='generate_csv'),     
     
     path("list_language", ListLanguage.as_view(), name='list_language'), 

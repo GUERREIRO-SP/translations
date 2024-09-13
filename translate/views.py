@@ -23,62 +23,6 @@ def index(request):
 
 
 
-
-
-##########################################
-##############  START CSV  ###############
-##########################################
-def export_translations(request):
-    projects = Project.objects.all() 
-
-    return render(request,'translate/export_translations.html', {"prj":projects})
-
-def generate_csv(request, id_prj):
-    if request.method =="POST":
-        print(f"Gerando csv: {id_prj}")
-
-    return redirect('export_translations')
-
-###############  END CSV  ################
-##########################################
-
-##########################################
-##########  CRIA TB TEMPORARIA  ##########
-##########################################
-
-def create_table_export_csv_tmp():
-    # conexão com DB
-    con = dblite.connect('db.sqlite3')
-    cur = con.cursor()
-
-    sql_drop = "DROP TABLE IF EXISTS export_csv_tmp;";
-    con.execute(sql_drop);
-
-    # qtd = cur.execute("SELECT count(*) FROM db.sqlite3 WHERE type='table' AND name='export_csv_tmp';").fetchmany()
-
-    # Cria Tabelas
-    create_table_csv_tmp = """
-    CREATE TABLE export_csv_tmp(
-        project(255) PRIMARY KEY,
-        id_project VARCHAR(36) NOT NULL,	
-        strategy VARCHAR(255) NOT NULL,	
-        key VARCHAR(255) NOT NULL,		
-        language VARCHAR(25) NOT NULL,	
-        context VARCHAR(1000),	
-        value VARCHAR(1000),	
-        override_en VARCHAR(1000),	
-        flag_export BOOLEAN);
-    """
-    with con:
-        cur = con.cursor()
-        cur.execute(create_table_csv_tmp)
-
-    cur.commit()
-    cur.close()
-
-
-
-
 ##########################################
 ###############  LANGUAGE  ###############
 ##########################################
@@ -120,7 +64,6 @@ def update_language(request, id):
         # print(f"Language - DIRECTION: {flag_direction}")
 
         # ..... Grava o registro na tabela, e direciona para o list...
-        # upd_language = 
         Language.objects.filter(id=id_language).update(
             name = name_language,
             rtl_direction = flag_direction
@@ -152,20 +95,20 @@ def create_project(request):
     if request.method =="POST":
         form = RegisterProjectForms(request.POST)
 
-        # Valida os campos do formulário
-        # if form.is_valid():
-        
-        # id_project = form["id"].value()
         name_project = form["name"].value()
         export_strategy = form["export_strategy"].value()
 
         # ..... Grava o registro na tabela, e direciona para o list...
         new_project = Project.objects.create(
-            # id = id_project,
             name = name_project,
             export_strategy = export_strategy
         )
         new_project.save()
+
+
+        # Adiciona registros en-US e pt-BR na tabela ProjectLanguage
+        setup_new_project(new_project.id)
+
 
     return redirect('list_project')
 
@@ -204,6 +147,24 @@ def tela_update_project(request, **kwargs):
 ##########################################
 ###########  PROJECT_LANGUAGE  ###########
 ##########################################
+
+def setup_new_project(id_project):
+    # ..... Adiciona os registros na tabela (ProjectLanguage)...
+    new_prj_lng_us = ProjectLanguage.objects.create(
+        id_project = id_project,
+        id_language = "en-US",
+        txt_limit = 100
+    )
+    new_prj_lng_us.save()
+
+    new_prj_lng_br = ProjectLanguage.objects.create(
+        id_project = id_project,
+        id_language = "pt-BR",
+        txt_limit = 100
+    )
+    new_prj_lng_br.save()
+
+
 
 def project_language(request):
     projects = Project.objects.all() 
@@ -366,7 +327,7 @@ def create_translations(request):
     return redirect('list_translations')
 
 
-def update_translations(request, pk):
+def update_translations(request, id):
     if request.method =="POST":
         form = UpdateTranslationsForms(request.POST)
 
@@ -379,6 +340,7 @@ def update_translations(request, pk):
         value = form["value"].value()
         override_en = form["override_en"].value()
         flag_export = form["flag_export"].value()
+
 
         # ..... Grava o registro na tabela, e direciona para o list...
         Translations.objects.filter(id=id_translations).update(
