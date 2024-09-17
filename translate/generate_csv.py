@@ -4,9 +4,11 @@ from django import forms
 
 # ...Importa os modelos das tabelas...
 from translate.models import Project
+from .views import setup_new_project
 
 
-class ExportForms(forms.Form):
+
+class ExportCSVForms(forms.Form):
     id_project = forms.CharField(
         label = "id_project",
         required = True,
@@ -27,7 +29,7 @@ def load_projects(request):
 # def generate_csv(request, **kwargs):
 def generate_csv(request):
     if request.method == "GET":
-        form = ExportForms(request.GET)
+        form = ExportCSVForms(request.GET)
         
         id_prj = form["id_project"].value()
 
@@ -49,13 +51,17 @@ def generate_csv(request):
 
 
 ##########################################
-##########  CRIA TB TEMPORARIA  ##########
+############  CONSULTA DADOS  ############
 ##########################################
 
-def load_language(id):
+def load_language(id_prj):
     # conexão com DB
     con = dblite.connect('db.sqlite3')
-    
+
+    # ..... Valida se há registros (en-US e pt-BR) na tabela ProjectLanguage, e cria caso negativo .....
+    setup_new_project(id_prj)
+
+
     lista = []
     with con:
         cur = con.cursor()
@@ -65,12 +71,11 @@ def load_language(id):
             FROM    translate_projectlanguage
             WHERE   id_project = ?;
         """
-        cur.execute(my_query, [id])
+        cur.execute(my_query, [id_prj])
         dados = cur.fetchall()      # Retorna todos os registros da tabela
         
         for i in dados:
             lista.append({i[0]})
-            # lista.append({"language": f("{i[0]} VARCHAR(255), ")})
 
     return lista 
 
@@ -85,11 +90,11 @@ def load_translations(id):
         cur = con.cursor()
 
         my_query = """
-            SELECT  tra.key, tra.id_language as language, tra.value
-              FROM  translate_translations as tra 
-             WHERE  tra.id_project = ?  
-               AND  tra.flag_export = true
-             ORDER  BY tra.key, tra.id_language;
+               SELECT  tra.key, tra.id_language as language, tra.value
+                 FROM  translate_translations as tra 
+                WHERE  tra.id_project = ?  
+                  AND  tra.flag_export = true
+             ORDER BY  tra.key, tra.id_language;
         """
         cur.execute(my_query, [id])
         dados = cur.fetchall()      # Retorna todos os registros da tabela
@@ -105,29 +110,6 @@ def load_translations(id):
 
 
 
-def create_table_export_csv_tmp(lst_language):
-    # conexão com DB
-    con = dblite.connect('db.sqlite3')
-    cur = con.cursor()
-
-    sql_drop = "DROP TABLE IF EXISTS export_csv_tmp;";
-    con.execute(sql_drop);
-
-    # qtd = cur.execute("SELECT count(*) FROM db.sqlite3 WHERE type='table' AND name='export_csv_tmp';").fetchmany()
-
-    # Cria Tabelas
-    create_table_csv_tmp = """
-    CREATE TABLE IF NOT EXISTS export_csv_tmp(
-        project(255) PRIMARY KEY,
-        key VARCHAR(255) NOT NULL,		
-        {lst_language});
-    """
-    with con:
-        cur = con.cursor()
-        cur.execute(create_table_csv_tmp)
-
-    cur.commit()
-    cur.close()
 
 
 

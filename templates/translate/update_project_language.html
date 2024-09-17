@@ -9,10 +9,6 @@
             Sempre deve ser colocado dentro da tag <form> -->
             {% csrf_token %}
             <div class="row">
-                <!-- <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
-                    <label for="id" style="color:#D9D9D9; margin-bottom: 5px;"><b>Id</b></label>
-                    <input type="text" class="form-control" disabled value="{{ prj_lng.id }}">
-                </div> -->
                 <div class="col-10 col-lg-10" style="margin-bottom: 10px;">
                     <label for="id_project" style="color:#D9D9D9; margin-bottom: 5px;"><b>Project Id</b></label>
                     <select class="form-control" name="id_project" required value="{{ prj_lng.id_project }}">

@@ -1,7 +1,8 @@
 import sqlite3 as dblite
 
 # conexão com DB
-con = dblite.connect('dbtranslations.db')
+# con = dblite.connect('dbtranslations.db')
+con = dblite.connect('db.sqlite3')
 
 # Cria Tabelas
 create_table_translations = """
@@ -79,6 +80,9 @@ delete_language = """
     DELETE FROM language WHERE ROWID=7
 """
 
+upd_language = """
+    UPDATE translation_projectlanguage  SET  id_language='en-US' where id_language='es-us'
+"""
 
 with con:
     cur = con.cursor()
@@ -86,5 +90,7 @@ with con:
     # cur.execute(popula_project)
     # cur.execute(popula_translations)
     # cur.execute(delete_language)
+
+    cur.execute(upd_language)
 
 

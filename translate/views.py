@@ -149,20 +149,44 @@ def tela_update_project(request, **kwargs):
 ##########################################
 
 def setup_new_project(id_project):
-    # ..... Adiciona os registros na tabela (ProjectLanguage)...
-    new_prj_lng_us = ProjectLanguage.objects.create(
-        id_project = id_project,
-        id_language = "en-US",
-        txt_limit = 100
-    )
-    new_prj_lng_us.save()
+    # ..... Valida se os registros existem na tabela e cria .....
+    con = dblite.connect('db.sqlite3')      # conexão com DB
 
-    new_prj_lng_br = ProjectLanguage.objects.create(
-        id_project = id_project,
-        id_language = "pt-BR",
-        txt_limit = 100
-    )
-    new_prj_lng_br.save()
+    lista: list[str] = ['en-US', 'pt-BR'] 
+
+    # tupla: tuple[str, int, bool] = ("nome", 123, False)
+
+    for item in lista:
+
+        with con:
+            cur: dblite.Cursor = con.cursor()
+
+            my_query: str = """
+                SELECT  count(*) 
+                  FROM  translate_projectlanguage
+                 WHERE  id_project = ? 
+                   AND  id_language = ?
+            """
+
+            # print(f"Project: {id_project}")
+            # print(f"item: {item}")
+            # print(f"query: {my_query}")
+
+            cur.execute(my_query, [id_project, item])
+            dados = cur.fetchone()      # Retorna todos os registros da tabela
+            
+            if dados[0] == 0:    
+
+                # print(f"dados: {dados[0]}")
+                # print(f"Project: {id_project}")
+                # print(f"item: {item}")
+
+                # ..... Adiciona os registros na tabela (ProjectLanguage) .....
+                ProjectLanguage.objects.create(
+                    id_project = id_project,
+                    id_language = item,
+                    txt_limit = 100
+                ).save()   
 
 
 
@@ -189,8 +213,8 @@ def load_project_language():
 
         my_query = """
             SELECT  pl.id, pl.id_project, prj.name as project_name, pl.id_language, lng.name as language_name, pl.txt_limit 
-            FROM    translate_language AS lng,  translate_project AS prj,  translate_projectlanguage AS pl
-            WHERE   lng.id = pl.id_language  AND  prj.id = pl.id_project   
+              FROM  translate_language AS lng,  translate_project AS prj,  translate_projectlanguage AS pl
+             WHERE  pl.id_language = lng.id  AND  pl.id_project = prj.id 
         """
         cur.execute(my_query)
         dados = cur.fetchall()      # Retorna todos os registros da tabela
