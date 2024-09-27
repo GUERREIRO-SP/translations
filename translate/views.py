@@ -215,6 +215,7 @@ def load_project_language():
             SELECT  pl.id, pl.id_project, prj.name as project_name, pl.id_language, lng.name as language_name, pl.txt_limit 
               FROM  translate_language AS lng,  translate_project AS prj,  translate_projectlanguage AS pl
              WHERE  pl.id_language = lng.id  AND  pl.id_project = prj.id 
+          ORDER BY  prj.name, lng.name 
         """
         cur.execute(my_query)
         dados = cur.fetchall()      # Retorna todos os registros da tabela
@@ -307,15 +308,16 @@ def load_translations():
 
         my_query = """
             SELECT  tra.id, tra.id_project, prj.name AS project_name, tra.strategy, tra.key, tra.id_language AS language_name, 
-                    tra.context, tra.value, tra.flag_export, tra.override_en 
-            FROM    translate_translations AS tra, translate_project AS prj
-            WHERE   tra.id_project = prj.id   
+                    tra.context, tra.value, (CASE tra.flag_export WHEN TRUE THEN 'Y' ELSE 'N' END), tra.override_en 
+              FROM  translate_translations AS tra, translate_project AS prj
+             WHERE  tra.id_project = prj.id 
+          ORDER BY  prj.name, tra.key, tra.id_language 
         """
         cur.execute(my_query)
         dados = cur.fetchall()      # Retorna todos os registros da tabela
 
         for i in dados:
-            lista.append({"id": i[0], "id_project": i[1], "project_name": i[2], "strategy": i[3], "language_name": i[5], "key": i[4], "value": i[7]})
+            lista.append({"id": i[0], "id_project": i[1], "project_name": i[2], "strategy": i[3], "language_name": i[5], "export": i[8], "key": i[4][:20], "value": i[7][:25]})
 
     return lista   
 

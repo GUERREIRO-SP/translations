@@ -3,10 +3,7 @@
 
 {% block content %}
     <div class="pagina-inicial">
-        <div class="col-12 text-center offset-12" style="color:#fdf907; margin-bottom: 5px;">
-            <th >Export Translations</th>  
-        </div>
-        <form action="{% url 'generate_csv' %}" method="GET">
+        <form action="" method="GET">
             <!-- csrf_tokeh - Garante a segurança das informações que passamos pelo formulário.
             Sempre deve ser colocado dentro da tag <form> -->
             {% csrf_token %}
@@ -21,10 +18,21 @@
                         {% endfor %}
                     </select> 
                 </div>
+                <p class="lead" style="color:#D9D9D9; margin-bottom: 5px;">
+                    Select Type File
+                </p>
+                <div class="col-12 col-lg-12" style="margin-bottom: 10px;">
+                    <select class="form-control" name="type_file">
+                        <option value="CSV">CSV</option>                            
+                        <option value="JASON">JASON</option>                            
+                        <option value="TXT">TXT</option>                            
+                    </select> 
+                </div>
+
                 <br><br>
                 <div class="row">
                     <div class="col-12 text-center offset-12">
-                        <button class="btn btn-primary col-12" style="padding: top 5px;" type="submit">Generate CSV</button>
+                        <a href="{% url 'generate_file' %}" onclick="history.back()" class="btn btn-primary col-12" style="padding: top 5px;">Generate File</a>
                         <a href="#" onclick="history.back()" class="btn btn-warning col-12" style="padding: top 5px;">to go back</a>
                     </div>
                 </div>

@@ -10,7 +10,8 @@ from .views import ListLanguage, ListProject
 # from .views import UpdateLanguage, UpdateProject, UpdateProjectLanguage, UpdateTranslations 
 from .views import DeleteLanguage, DeleteProject, DeleteProjectLanguage, DeleteTranslations
 
-from .generate_csv import load_projects, generate_csv
+# from .generate_csv import load_projects, generate_csv 
+from .generate_file import load_projects, generate_csv, generate_file 
 
 
 
@@ -20,6 +21,7 @@ urlpatterns = [
 
     path("export_translations", load_projects, name='export_translations'), 
     path("generate_csv", generate_csv, name='generate_csv'),     
+    # path("generate_file", generate_file, name='generate_file'),     
     
     path("list_language", ListLanguage.as_view(), name='list_language'), 
     path("list_project", ListProject.as_view(), name='list_project'), 

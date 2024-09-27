@@ -13,23 +13,23 @@
                     <label for="id_project" style="color:#D9D9D9; margin-bottom: 5px;"><b>Project Id</b></label>
                     <select class="form-control" name="id_project" required value="{{ tra.id_project }}">
                         {% for obj in prj %}
-                            <option data-course="{{ tra.name_project }}" value="{{ obj.id }}">{{ obj.name }}</option>
+                            <option data-course="{{ tra.name_project }}" value="{{ obj.id }}" {% if tra.id_project == obj.id %} selected {% endif %}>{{ obj.name }}</option>
                         {% endfor %}
                     </select> 
                 </div>
                 <div class="col-3 col-lg-3" style="margin-bottom: 10px;">
                     <label for="strategy" style="color:#D9D9D9; margin-bottom: 5px;"><b>Strategy</b></label>
                     <select class="form-control" name="strategy" value="{{ tra.strategy }}" required>
-                        <option value="ChatGPT">ChatGPT</option> 
-                        <option value="Google">Google</option> 
-                        <option value="Manual">Manual</option> 
+                        <option value="ChatGPT" {% if tra.strategy == 'ChatGPT' %} selected {% endif %}>ChatGPT</option> 
+                        <option value="Google" {% if tra.strategy == 'Google' %} selected {% endif %}>Google</option> 
+                        <option value="Manual" {% if tra.strategy == 'Manual' %} selected {% endif %}>Manual</option> 
                     </select>
                 </div>                        
                 <div class="col-3 col-lg-3" style="margin-bottom: 10px;">
                     <label for="id_language" style="color:#D9D9D9; margin-bottom: 5px;"><b>Language</b></label>
                     <select class="form-control" name="id_language" value="{{ tra.id_language }}" required>
                         {% for obj in lng %}
-                            <option value="{{ obj.id }}">{{ obj.name }}</option>                            
+                            <option value="{{ obj.id }}" {% if tra.id_language == obj.id %} selected {% endif %}>{{ obj.name }}</option>                            
                         {% endfor %}
                     </select> 
                 </div>    

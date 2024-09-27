@@ -27,6 +27,23 @@ def load_projects(request):
     return render(request,'translate/export_translations.html', {"prj":projects})
 
 
+
+def generate_file(request):
+    if request.method == "GET":
+        form = ExportCSVForms(request.GET)
+        
+        str_type = form["type_file"].value()
+
+        print(str_type)
+        
+        if str_type=="CSV":
+            generate_csv(request)
+        elif str_type=="JASON":
+            generate_JASON(request)
+        else:
+            generate_TXT(request)
+
+
 # def generate_csv(request, **kwargs):
 def generate_csv(request):
     if request.method == "GET":
@@ -157,4 +174,10 @@ def load_translations(id):
     # print(f"FINAL {translate_dic}")
 
     return None 
+
+
+
+
+
+
 
