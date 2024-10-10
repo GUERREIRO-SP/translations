@@ -9,6 +9,7 @@
             <table class="table table_striped" style="color:#D9D9D9; margin-bottom: 5px;">
                 <tr>
                     <th>Project</th>
+                    <th>Id</th>
                     <th>Language</th>
                     <th>Txt Limit</th>
                 </tr>
@@ -16,7 +17,8 @@
                 {% for obj in prj_lng %}
                     <tr>
                         <td>{{ obj.project_name }}</td>
-                        <td>{{ obj.language }}</td>
+                        <td>{{ obj.id_language }}</td>
+                        <td>{{ obj.language_name }}</td>
                         <td>{{ obj.txt_limit }}</td>
                         <td>
                             <a href="{% url 'tela_update_projectlanguage' obj.id %}" class="btn btn-warning btn-sm">Edit</a>

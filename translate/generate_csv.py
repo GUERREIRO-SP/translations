@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 import sqlite3 as dblite
 import csv
 from django import forms
+import io
+
 
 # ...Importa os modelos das tabelas...
 from translate.models import Project
@@ -34,9 +36,10 @@ def generate_csv(request):
         
         id_prj = form["id_project"].value()
 
-        lst_language = load_language(id_prj)
+        # lst_language = load_language(id_prj)
+        # lst_translations = load_translations(id_prj)
 
-        lst_translations = load_translations(id_prj)
+        load_translations(id_prj)
 
 
     return redirect('export_translations')
@@ -115,21 +118,19 @@ def load_translations(id):
 
     # print(f"LIST-KEY {lst_key}")
     # print(f"LIST-LANGUAGE {lst_language}")
-
-
+    
     for id_key in lst_key:
-
+    
         translate_dic[id_key] = {}
-
+    
         for id_lang in lst_language:
-
             # Popula o dicionário com Key e Language (vazio)
             # {'GWA_PURCHASED': {'en-US': '', 'es-419': '', 'fr-FR': '', 'ja-JP': '', 'pt-BR': ''}, 
             #  'PRODUCT_PRICE_KEY': {'en-US': '', 'es-419': '', 'fr-FR': '', 'ja-JP': '', 'pt-BR': ''}}
             translate_dic[id_key][id_lang] = ""  
-
-
+    
     with con:
+
         cur = con.cursor()
 
         my_query = """
@@ -142,19 +143,50 @@ def load_translations(id):
         cur.execute(my_query, [id])
         dados = cur.fetchall()      # Retorna todos os registros da tabela
 
-        # ..............  Montagem do CSV  ..............
-        with open("csv_file.csv", "w", encoding="utf8", newline="") as csvfile:
-            head_file = ("Key", "Language", "Translation")
-            writer = csv.writer(csvfile)
-            writer.writerow(head_file)
 
-            for line in dados:
+        for line in dados:
 
-                translate_dic[line[0]][line[1]] = line[2]  
+            translate_dic[line[0]][line[1]] = line[2]  
 
-                writer.writerow((line[0], line[1], line[2]))
 
-    # print(f"FINAL {translate_dic}")
+
+    print(f"LANGUAGE {lst_language}")
+    print(f"FINAL {translate_dic}")
+
+    
+
+    # ..............  Montagem do CSV  ..............
+    with open("csv_file.csv", "w", encoding="utf8", newline="") as csvfile:
+
+        head_file = ["Key"]
+        for language in lst_language:
+            head_file.append(language)
+
+        writer = csv.writer(csvfile)
+        writer.writerow(head_file)
+
+        # for key, language_dict in translate_dic.items():
+        for key in translate_dic:
+            language_dict = translate_dic[key]
+            line = [key]
+
+            for language in lst_language:
+
+                line.append(language_dict[language])
+
+            writer.writerow(line)
+
 
     return None 
+
+# --- Original ---
+# Key,en-US,es-419,fr-FR,ja-JP,pt-BR
+# GWA_PURCHASED,Tradução English,Tradução para Espanhol 419,,,Tradução para Portugues
+# PRODUCT_PRICE_KEY,,,,Tradução para Japones 11,Tradução, para Portugues 1
+
+
+# --- Com virgula e aspas ---
+# Key,en-US,es-419,fr-FR,ja-JP,pt-BR
+# GWA_PURCHASED,"Tradução, English","Tradução para ""Espanhol"" 419",,,Tradução para Portugues
+# PRODUCT_PRICE_KEY,,,,Tradução para Japones 11,Tradução para Portugues 1
 

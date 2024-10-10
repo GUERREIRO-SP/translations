@@ -10,8 +10,8 @@ from .views import ListLanguage, ListProject
 # from .views import UpdateLanguage, UpdateProject, UpdateProjectLanguage, UpdateTranslations 
 from .views import DeleteLanguage, DeleteProject, DeleteProjectLanguage, DeleteTranslations
 
-# from .generate_csv import load_projects, generate_csv 
-from .generate_file import load_projects, generate_csv, generate_file 
+from .generate_csv import load_projects, generate_csv
+# from .generate_file import load_projects, generate_csv, generate_file 
 
 
 

@@ -212,7 +212,8 @@ def load_project_language():
         cur = con.cursor()
 
         my_query = """
-            SELECT  pl.id, pl.id_project, prj.name as project_name, pl.id_language, lng.name as language_name, pl.txt_limit 
+            SELECT  pl.id, pl.id_project, prj.name as project_name, CONCAT(pl.id_language, ' --> ', lng.name) as language, 
+                    pl.id_language, lng.name as language_name, pl.txt_limit 
               FROM  translate_language AS lng,  translate_project AS prj,  translate_projectlanguage AS pl
              WHERE  pl.id_language = lng.id  AND  pl.id_project = prj.id 
           ORDER BY  prj.name, lng.name 
@@ -221,7 +222,9 @@ def load_project_language():
         dados = cur.fetchall()      # Retorna todos os registros da tabela
         
         for i in dados:
-            lista.append({"id": i[0], "project_name": i[2], "language_name": i[4], "txt_limit": i[5]})
+
+            # lista.append({"id": i[0], "project_name": i[2], "id_language": i[3], "language_name": i[4], "txt_limit": i[5]})
+            lista.append({"id": i[0], "project_name": i[2], "language": i[3], "txt_limit": i[6]})
 
     return lista   
 

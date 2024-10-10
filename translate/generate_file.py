@@ -38,14 +38,14 @@ def generate_file(request):
         
         if str_type=="CSV":
             generate_csv(request)
-        elif str_type=="JASON":
-            generate_JASON(request)
+        elif str_type=="JSON":
+            generate_JSON(request)
         else:
             generate_TXT(request)
 
 
 # def generate_csv(request, **kwargs):
-def generate_csv(request):
+def generate_csv11(request):
     if request.method == "GET":
         form = ExportCSVForms(request.GET)
         
@@ -67,7 +67,7 @@ def generate_csv(request):
 ############  CONSULTA DADOS  ############
 ##########################################
 
-def load_language(id_prj):
+def load_language111(id_prj):
     # conexão com DB
     con = dblite.connect('db.sqlite3')
 
@@ -94,7 +94,7 @@ def load_language(id_prj):
 
 
 
-def load_key_translations(id):
+def load_key_translations111(id):
     # conexão com DB
     con = dblite.connect('db.sqlite3')
     
@@ -119,7 +119,7 @@ def load_key_translations(id):
 
 
 
-def load_translations(id):
+def load_translations111(id):
     # conexão com DB
     con = dblite.connect('db.sqlite3')
     
