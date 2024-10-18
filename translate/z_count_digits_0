@@ -1,0 +1,62 @@
+from django.test import TestCase
+import time
+
+# Create your tests here.
+
+# integers_list =  [1, 1, 2 ,3 ,1 ,2 ,3 ,4]
+# digits_list = [1, 3]
+
+# integers_list = [-18, -31, 81, -19, 111, -888]
+# digits_list = [1, 8, 4]
+
+
+def busca_in_lista(digito: int, numero: int) -> int:
+    tt: int = 0
+
+    # print(f"LISTA: {numero}")
+    digito_str: str = str(digito)
+    char: str
+    for char in str(numero):
+        if digito_str == char:
+            tt += 1
+    return tt
+
+
+     
+class List(object):
+    def count_spec_digits(self, integers_list, digits_list):
+        lst_retorno = []
+        tpl_dados = ()
+        e: str
+        for e in digits_list:
+            qtd=0
+            print(f"Integer: {integers_list}")
+            print(f"Lista: {digits_list}")
+            for i in integers_list:
+                qtd += busca_in_lista(e, i)
+
+            tpl_dados = e, qtd 
+#             lst_retorno=(tpl_dados)
+            lst_retorno.append(tpl_dados)
+
+            print(f"resultado...: {lst_retorno}")
+
+        return lst_retorno      
+
+
+
+
+
+
+l = List()
+# integers_list =  [1, 1, 2 ,3 ,1 ,2 ,3 ,4]
+# digits_list = [1, 3]
+integers_list = [-18, -31, 81, -19, 111, -888]
+digits_list = [1, 8, 4]
+
+t1 = time.time()
+
+print(l.count_spec_digits(integers_list, digits_list),[(1, 7), (8, 5), (4, 0)])
+
+tempoExec = time.time() - t1
+print("Tempo de execução: {} segundos".format(tempoExec))

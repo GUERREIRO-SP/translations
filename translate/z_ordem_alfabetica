@@ -1,0 +1,44 @@
+from django.test import TestCase
+import time
+
+# Create your tests here.
+
+def longest(a1, a2):
+
+    # print(ord("a"))
+    # print(ord("z"))
+
+    set_str: set = set(str.lower(a1) + str.lower(a2))
+    dic_letras: dict = {}
+    str_retorno: str = ""
+
+    for i in range(97, 122):
+        dic_letras[chr(i)] = 0
+
+    for i in set_str:
+        dic_letras[i] = 1
+        
+    for i in dic_letras:
+        if dic_letras[i]==1:
+            str_retorno += i
+
+    print(dic_letras)
+    print(f"RETORNO: {str_retorno}")
+
+    return str_retorno
+
+
+
+t1 = time.time()
+
+#   aehrsty
+print (longest("Aretheyhere", "yestheyarehere"))
+#   abcdefghilnoprstu
+print(longest("loopingisfunbutdangerous", "lessdangerousthancoding"))
+#   acefghilmnoprstuy
+print(longest("inmanylanguages", "theresapairoffunctions"))
+
+tempoExec = time.time() - t1
+
+print("Tempo de execução: {} segundos".format(tempoExec))
+
